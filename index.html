@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HRM practice quiz</title>
+<meta name="description" content="ESCP MiM · Human Resource Management · 30 exam-style questions on chapters 1–3.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --surface: #f5f5f7;
+  --card: #ffffff;
+  --text: #1d1d1f;
+  --muted: #6e6e73;
+  --line: #e5e5ea;
+  --accent: #1d4ed8;
+  --accent-soft: #e8eefc;
+  --on-accent: #ffffff;
+  --good: #15803d;
+  --good-soft: #e8f6ed;
+  --bad: #c62828;
+  --bad-soft: #fdecec;
+  --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000000;
+    --surface: #1c1c1e;
+    --card: #1c1c1e;
+    --text: #f5f5f7;
+    --muted: #a1a1a6;
+    --line: #38383a;
+    --accent: #6b8ff5;
+    --accent-soft: #1d2a4d;
+    --on-accent: #0b1020;
+    --good: #4ade80;
+    --good-soft: #12301e;
+    --bad: #f87171;
+    --bad-soft: #3a1616;
+    --shadow: none;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 720px; margin: 0 auto; padding: 40px 16px 64px; }
+header h1 { font-size: clamp(26px, 5vw, 34px); line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 6px; font-weight: 700; }
+header p { margin: 0; color: var(--muted); font-size: 15px; }
+
+.tabs { display: flex; gap: 4px; margin: 28px 0 20px; padding: 4px; background: var(--surface); border-radius: 14px; }
+.tab {
+  flex: 1 1 0; min-width: 0; min-height: 44px; padding: 8px 10px;
+  border: 0; border-radius: 10px; background: transparent; color: var(--muted);
+  font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; line-height: 1.2;
+}
+.tab span { display: block; font-size: 12px; font-weight: 500; opacity: .85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tab[aria-selected="true"] { background: var(--card); color: var(--text); box-shadow: var(--shadow); }
+@media (prefers-color-scheme: dark) { .tab[aria-selected="true"] { background: #3a3a3c; } }
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 24px; box-shadow: var(--shadow); }
+.meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 14px; color: var(--muted); font-weight: 500; }
+.meta strong { color: var(--text); font-weight: 600; }
+.bar { height: 6px; background: var(--surface); border-radius: 99px; overflow: hidden; margin: 10px 0 22px; }
+.bar > div { height: 100%; width: 0; background: var(--accent); border-radius: 99px; transition: width .3s ease; }
+
+.question { font-size: 19px; font-weight: 600; line-height: 1.4; margin: 0 0 18px; letter-spacing: -0.01em; }
+.question:focus { outline: none; }
+.options { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.opt {
+  display: flex; align-items: flex-start; gap: 12px; width: 100%; min-height: 52px;
+  padding: 12px 14px; text-align: left; font: inherit; font-size: 16px; color: var(--text);
+  background: var(--card); border: 1.5px solid var(--line); border-radius: 14px; cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.opt:hover:not([aria-disabled="true"]) { border-color: var(--accent); background: var(--accent-soft); }
+.opt .key {
+  flex: 0 0 28px; height: 28px; border-radius: 8px; display: grid; place-items: center;
+  background: var(--surface); color: var(--muted); font-size: 13px; font-weight: 700; margin-top: -1px;
+}
+.opt[aria-disabled="true"] { cursor: default; }
+.opt.correct { border-color: var(--good); background: var(--good-soft); }
+.opt.correct .key { background: var(--good); color: var(--bg); }
+.opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
+.opt.wrong .key { background: var(--bad); color: var(--bg); }
+.opt.dim { opacity: .55; }
+
+.feedback { margin-top: 18px; padding: 14px 16px; border-radius: 14px; font-size: 15px; line-height: 1.55; border-left: 4px solid; }
+.feedback.good { background: var(--good-soft); border-color: var(--good); }
+.feedback.bad { background: var(--bad-soft); border-color: var(--bad); }
+.feedback b { display: block; margin-bottom: 2px; }
+[hidden] { display: none !important; }
+
+.nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+.btn {
+  min-height: 44px; padding: 10px 20px; border-radius: 12px; font: inherit; font-size: 15px; font-weight: 600;
+  cursor: pointer; border: 1.5px solid var(--line); background: var(--card); color: var(--text);
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+.btn:not(:disabled):hover { filter: brightness(.96); }
+
+.dots { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; justify-content: center; }
+.dot {
+  width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--surface);
+  color: var(--muted); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+}
+.dot.right { background: var(--good); border-color: var(--good); color: var(--bg); }
+.dot.miss { background: var(--bad); border-color: var(--bad); color: var(--bg); }
+.dot.current { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
+
+.end { text-align: center; padding: 16px 0 8px; }
+.end .label { color: var(--muted); font-size: 15px; font-weight: 500; margin: 0; }
+.end .big { font-size: clamp(64px, 16vw, 96px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; margin: 10px 0 8px; }
+.end .msg { margin: 0 0 24px; color: var(--muted); }
+.end .actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+
+.hint { margin-top: 18px; text-align: center; font-size: 13px; color: var(--muted); }
+kbd { font: inherit; font-size: 12px; padding: 1px 6px; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); }
+
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.tab:focus-visible, .opt:focus-visible, .btn:focus-visible, .dot:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+@media (max-width: 520px) {
+  .wrap { padding-top: 28px; }
+  .card { padding: 18px 16px; border-radius: 18px; }
+  .question { font-size: 18px; }
+  .tab { font-size: 13px; padding: 8px 6px; }
+  .nav .btn { flex: 1 1 0; }
+  .hint { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>HRM practice quiz · Chapters 1–3</h1>
+    <p>ESCP MiM · Human Resource Management · 30 exam-style questions</p>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Chapters" id="tabs"></nav>
+
+  <main class="card" id="panel" role="tabpanel">
+    <section id="quiz">
+      <div class="meta"><span id="count"></span><strong id="score" aria-live="polite"></strong></div>
+      <div class="bar" aria-hidden="true"><div id="fill"></div></div>
+      <h2 class="question" id="question" tabindex="-1"></h2>
+      <ul class="options" id="options"></ul>
+      <div class="feedback" id="feedback" role="status" hidden></div>
+      <div class="nav">
+        <button class="btn" id="prev" type="button">Previous</button>
+        <button class="btn primary" id="next" type="button">Next</button>
+      </div>
+      <div class="dots" id="dots" aria-label="Jump to question"></div>
+    </section>
+
+    <section class="end" id="end" hidden>
+      <p class="label" id="endLabel"></p>
+      <p class="big" id="endScore"></p>
+      <p class="msg" id="endMsg"></p>
+      <div class="actions">
+        <button class="btn" id="review" type="button">Review answers</button>
+        <button class="btn primary" id="restart" type="button">Restart this chapter</button>
+      </div>
+    </section>
+  </main>
+
+  <p class="hint">Keyboard: <kbd>A</kbd>–<kbd>D</kbd> or <kbd>1</kbd>–<kbd>4</kbd> to answer · <kbd>←</kbd> <kbd>→</kbd> to move</p>
+</div>
+
+<script>
+const DATA = [{"ch": "Introduction to HRM", "qs": [["In the Western Electric (Hawthorne) studies, productivity rose in both the test and the control groups, even when lighting was cut to moonlight level. What is the best explanation?", ["Being observed and receiving attention changed how workers behaved", "Brighter lighting had a delayed positive effect", "Piece-rate pay was introduced at the same time", "The control group was poorly chosen"], 0, "The Hawthorne effect: being observed and shown interest raises effort, whatever is changed. It also showed that the workplace is a social system where informal norms shape output."], ["A bakery chain pilots a team bonus in five shops. Staff know they are part of a study, and output rises by 8%. What is the main threat to concluding that the bonus caused the rise?", ["Labour process critique", "The Hawthorne effect: the attention alone may have raised output", "Low person–job fit", "Competitive parity"], 1, "Because staff knew they were observed, part of the rise may come from the attention itself. A good design compares with shops that are observed the same way but get no bonus."], ["Under the VRIO framework, an HR practice that is valuable but used by every competitor gives a firm…", ["A competitive disadvantage", "A temporary competitive advantage", "A sustained competitive advantage", "Competitive parity"], 3, "Valuable but common resources only give competitive parity. Rarity gives above-normal profits in the short term; being hard to imitate and supported by the organisation makes the advantage sustainable."], ["Which of these is the hardest for a rival to imitate, according to the resource-based view?", ["A star CEO hired from a competitor", "A single best practice copied from a consultancy", "A culture of fun and trust built over decades, as at Southwest Airlines", "Above-market salaries"], 2, "Socially complex resources such as a firm's history and culture are causally ambiguous, so rivals cannot buy or copy them. A star can be poached, and a single practice or a salary level can be copied."], ["A firm wants its HR function to be a source of sustained competitive advantage. Which advice follows from the resource-based view?", ["Adopt the single best practice used by the market leader", "Build a bundle of HR practices that reinforce each other", "Hire only stars with general skills", "Outsource HR to cut costs"], 1, "One best practice is easy to copy. A system of mutually reinforcing practices creates synergy and is hard to imitate: this is the O (Organised) in VRIO."], ["Which skill is most likely to support a sustained competitive advantage?", ["Advanced Excel modelling", "Mastery of a proprietary methodology designed for the company", "A general MBA toolkit", "Fluency in English"], 1, "Firm-specific skills create value only in this firm, so rivals cannot buy them away. General skills such as Excel are portable and valuable to every employer."], ["Bloom, Van Reenen and colleagues scored management practices in about 6,000 firms across 17 countries. What did they find?", ["Management practices vary little across countries", "Only family firms benefit from good practices", "Practices matter only in manufacturing", "Better-managed firms perform better"], 3, "Using an interview-based tool scoring practices from 1 (worst) to 5 (best), they found that better-managed firms perform better: evidence that how people are managed matters for results."], ["According to the labour process critique, how do high-performance HR practices raise organisational performance?", ["By lowering the need for supervision", "Only by improving employee skills", "Partly by intensifying work, which increases job strain and insecurity", "By raising pay above market levels"], 2, "The labour process view argues that managers keep pushing employees to work longer or harder. HR practices raise output partly through work intensification, with costs for employees."], ["Two consultants each work 10 hours of overtime a week. Anna does it to signal commitment to her boss; Ben does it because he wants to learn new things. What does self-determination theory predict?", ["Anna's well-being falls, while Ben's effort is linked to higher well-being", "Both suffer the same drop in well-being", "Ben's well-being falls more, because learning is tiring", "Overtime has no effect on well-being"], 0, "Extrinsically driven overtime (signalling, social contagion, deferred pay, job demands) lowers well-being; intrinsically driven effort (learning, commitment to others) raises it."], ["In the European Working Conditions Survey (about 52,000 employees in 36 countries), which factor was the stronger predictor of stress, lower satisfaction and worse career outcomes?", ["Long commutes", "Overtime hours", "Work intensity", "Part-time contracts"], 2, "Both overtime and work intensity were linked to higher stress and lower satisfaction, but work intensity was the stronger predictor. Discretion over how and when to work softens the harm without removing it."]]}, {"ch": "Sustainable HRM", "qs": [["Which definition describes sustainable HRM (Ehnert et al., 2016)?", ["HRM strategies and practices that achieve financial, social and ecological goals, inside and outside the firm, over the long term, while controlling for side effects", "HR practices that minimise labour costs over the long term", "Voluntary integration of social concerns into business operations", "Development that meets present needs without compromising future generations"], 0, "Sustainable HRM combines financial, social and ecological goals over the long term. The other options describe cost-cutting, CSR (European Commission) and sustainable development (Brundtland)."], ["According to the European Commission (2001), what distinguishes corporate social responsibility?", ["It is imposed by law", "It concerns only environmental issues", "It is limited to charitable donations", "Firms integrate social and environmental concerns into their operations and stakeholder relations on a voluntary basis"], 3, "CSR is voluntary and covers both social and environmental concerns, in operations and in dealings with stakeholders."], ["The Brundtland Commission (1987) defined sustainable development as development that…", ["Maximises GDP growth", "Is led by governments rather than firms", "Protects the environment above all other goals", "Meets the needs of the present without compromising the ability of future generations to meet their own needs"], 3, "This is the classic Brundtland definition, the starting point for CSR and sustainable HRM."], ["Which of these is NOT one of the grand challenges in management listed by George et al. (2016)?", ["Rising interest rates", "Ageing societies", "Climate change", "Gender inequality"], 0, "The grand challenges are climate change, ageing societies, the digital workforce and gender inequality. The course asks how HRM can help address them."], ["A firm bans work emails between 8 p.m. and 8 a.m. Which type of flexibility does this policy give employees?", ["Control over where they work", "Control over connectivity", "Control over when they work", "Control over how much they work"], 1, "The five types are where (telework), how much (part-time), when (flextime), connectivity (right to disconnect) and time off (leave). An email ban is a right to disconnect."], ["A company offers generous flextime on paper, but very few employees use it. What is the most likely explanation?", ["The policy is not available", "Supervisors act as gatekeepers, and employees fear stigma and career penalties", "Employees do not value flexibility", "Flextime always lowers performance"], 1, "Implementation matters: availability → access → use → outcomes. A policy can exist while supervisors block access and users fear being seen as less committed."], ["In the CTrip experiment, volunteers were assigned to work from home according to their birthday. Why was this design important?", ["It made the experiment cheaper", "It randomised assignment, so differences can be attributed to working from home and not to who chose it", "It let managers pick their best workers", "It guaranteed that everyone would be promoted"], 1, "Random assignment rules out self-selection: otherwise more productive people might simply choose to work from home."], ["Which was a downside of working from home in the CTrip experiment?", ["Performance fell by 13%", "Sick days increased", "Employees were less happy", "Promotion rates roughly halved"], 3, "Home workers performed 13% better, took fewer breaks and sick days and were happier, but their promotion rates halved: 'out of sight, out of mind'."], ["From the employee value proposition point of view, which is a COST of working from home?", ["No commute", "More focus", "Isolation and harder mentoring", "Access to a wider talent pool"], 2, "Benefits: no commute, focus, autonomy, a wider talent pool. Costs: isolation, harder mentoring and weaker visibility for promotion."], ["Which is NOT among the risks of flexible working highlighted in the course (Kossek et al., 2023)?", ["Higher commuting costs", "Career penalties", "Work intensification", "Stigma"], 0, "Flexible working can bring stigma, career penalties and intensification (work spilling into the evening). It reduces, rather than raises, commuting costs."]]}, {"ch": "Recruitment and selection", "qs": [["Lloyd is a star analyst whose results depend on rare in-house IT systems built by his bank. According to Groysberg, McLean and Nohria (2006), his human capital is mostly…", ["General", "Industry-specific", "Company-specific, the least portable", "Relationship-based"], 2, "Skills tied to a firm's routines, culture and systems are company-specific, the least portable type. If Lloyd moves, his performance is likely to drop."], ["Paul is ranked first, has 20 years in the industry and could move to a rival together with his team. Which move is most likely to preserve his performance?", ["Moving alone, for a higher salary", "Moving to a different industry", "Moving with his team, since his capital is largely industry and relationship-based", "Staying, since all his skills are firm-specific"], 2, "Industry and relationship capital travel with him and his team. Stars who move alone lose performance for up to five years (Groysberg et al., 2006)."], ["What did Bidwell (2011) find when studying 5,260 employees at a US bank?", ["External hires outperformed internal promotions from the start", "There was no difference between internal and external hires", "Internal hires were paid more", "External hires were rated lower for two years and left more often, although they were better educated and paid more"], 3, "External hires cost more and look stronger on paper, yet perform worse at first and exit more. Insiders are easier to match because the firm already knows their skills and fit."], ["Which is NOT a reason why external hires tend to struggle?", ["They lack firm-specific skills", "The firm has less information about their fit", "Their skills may not match the new firm's resources", "They are usually less educated than internal hires"], 3, "External hires are often better educated. They struggle because of missing firm-specific skills, less information about fit and a mismatch with the new firm's resources and colleagues."], ["A candidate has excellent skills for the job but does not share the company's values. In the P–O / P–J fit matrix, this candidate is…", ["The ideal hire", "Capable but may leave", "Committed but struggling", "A poor match"], 1, "Strong P–J fit predicts individual performance; weak P–O fit predicts lower satisfaction, commitment and retention. So: capable but may leave."], ["In what order should a recruiter use the two types of fit?", ["Screen for P–O fit first, then hire whoever fits the culture best", "Use only P–O fit, because skills can be trained", "Screen for P–J fit first, then use P–O fit to choose among qualified candidates, watching for 'similar-to-me' judgements", "Use only P–J fit, because culture does not matter"], 2, "P–J fit decides who can do the job; P–O fit then helps choose among qualified people. Culture fit used alone risks 'similar-to-me' bias."], ["Employees hired through referrals stay longer than those hired through job ads. One explanation is that the referrer gives them an honest picture of the job before they apply. This is the…", ["Individual difference hypothesis", "Realistic information hypothesis", "Hawthorne effect", "Signalling hypothesis"], 1, "Informal sources lower turnover. The realistic information hypothesis says recruits know what to expect; the individual difference hypothesis says referrers pre-screen who applies."], ["An AI video-interview tool gave the same actress different personality scores when she wore glasses, a headscarf or sat in front of a bookshelf. Which criterion for effective selection does this violate most directly?", ["Practicality", "Validity", "Acceptability", "Reliability"], 3, "Reliability means consistent measurement: the same person should get the same score across sessions or raters. The scores also look contaminated by irrelevant features (a validity issue), but the defining problem is that the same person got different scores, and the course uses this case for reliability."], ["An AI tool rates candidates only on their facial expressions and tone of voice. Which problem does this show?", ["Low validity: the measure is deficient because it leaves out the real skills of the job", "Low acceptability", "Low practicality", "A halo error by human raters"], 0, "Validity means measuring the right thing: relevant, not contaminated and not deficient. Scoring faces and voices misses what the job actually requires."], ["An AI tool that ranks CVs preferred White-associated names in 85% of tests. What does this show about AI in hiring?", ["AI avoids halo errors and mood effects but can learn stereotypes from its data", "AI removes all rating errors", "AI is more acceptable to candidates than human interviewers", "The tool is unreliable but free from bias"], 0, "AI does not suffer from mood, leniency or halo, but it can learn stereotypes, so it fails the criterion 'free from biases and stereotypes'. Audits such as NYC Local Law 144 respond to this."]]}];
+
+(function () {
+  "use strict";
+  const LETTERS = ["A", "B", "C", "D"];
+  const $ = (id) => document.getElementById(id);
+  const el = (tag, cls, text) => {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  };
+
+  const state = DATA.map((c) => ({ answers: new Array(c.qs.length).fill(null), cur: 0, done: false }));
+  let ch = 0;
+
+  /* Tabs */
+  const tabs = DATA.map((c, i) => {
+    const b = el("button", "tab");
+    b.type = "button";
+    b.setAttribute("role", "tab");
+    b.id = "tab" + (i + 1);
+    b.setAttribute("aria-controls", "panel");
+    b.appendChild(document.createTextNode("Chapter " + (i + 1)));
+    b.appendChild(el("span", null, c.ch));
+    b.addEventListener("click", () => { location.hash = "ch" + (i + 1); });
+    $("tabs").appendChild(b);
+    return b;
+  });
+
+  function chapterFromHash() {
+    const m = /^#ch([1-9]\d*)$/.exec(location.hash);
+    const i = m ? parseInt(m[1], 10) - 1 : 0;
+    return i >= 0 && i < DATA.length ? i : 0;
+  }
+
+  function stats(s) {
+    let right = 0, answered = 0;
+    s.answers.forEach((a, i) => {
+      if (a == null) return;
+      answered++;
+      if (a === DATA[ch].qs[i][2]) right++;
+    });
+    return { right, answered };
+  }
+
+  function render(focusQuestion) {
+    const c = DATA[ch], s = state[ch];
+    tabs.forEach((t, i) => {
+      t.setAttribute("aria-selected", i === ch ? "true" : "false");
+      t.tabIndex = i === ch ? 0 : -1;
+    });
+    $("panel").setAttribute("aria-labelledby", "tab" + (ch + 1));
+    document.title = "HRM practice quiz · Chapter " + (ch + 1);
+
+    const { right, answered } = stats(s);
+    $("quiz").hidden = s.done;
+    $("end").hidden = !s.done;
+
+    if (s.done) {
+      const total = c.qs.length;
+      $("endLabel").textContent = "Chapter " + (ch + 1) + " · " + c.ch;
+      $("endScore").textContent = right + "/" + total;
+      const pct = right / total;
+      $("endMsg").textContent = pct >= 0.8 ? "Excellent. You are ready for this chapter."
+        : pct >= 0.6 ? "Good. Review the questions you missed."
+        : "Worth another pass: review the explanations and try again.";
+      $("review").focus({ preventScroll: true });
+      return;
+    }
+
+    const q = c.qs[s.cur], chosen = s.answers[s.cur], locked = chosen != null, correct = q[2];
+    $("count").textContent = "Question " + (s.cur + 1) + " of " + c.qs.length;
+    $("score").textContent = "Score " + right + "/" + answered;
+    $("fill").style.width = (answered / c.qs.length * 100) + "%";
+    $("question").textContent = q[0];
+
+    const list = $("options");
+    list.replaceChildren();
+    q[1].forEach((text, i) => {
+      const li = el("li");
+      const b = el("button", "opt");
+      b.type = "button";
+      b.appendChild(el("span", "key", LETTERS[i]));
+      b.appendChild(el("span", null, text));
+      if (locked) {
+        b.setAttribute("aria-disabled", "true");
+        if (i === correct) b.classList.add("correct");
+        else if (i === chosen) b.classList.add("wrong");
+        else b.classList.add("dim");
+        if (i === chosen) b.setAttribute("aria-label", LETTERS[i] + ". " + text + " (your answer" + (i === correct ? ", correct)" : ", wrong)"));
+        else if (i === correct) b.setAttribute("aria-label", LETTERS[i] + ". " + text + " (correct answer)");
+      }
+      b.addEventListener("click", () => answer(i));
+      li.appendChild(b);
+      list.appendChild(li);
+    });
+
+    const fb = $("feedback");
+    fb.replaceChildren();
+    if (locked) {
+      const ok = chosen === correct;
+      fb.className = "feedback " + (ok ? "good" : "bad");
+      fb.appendChild(el("b", null, ok ? "Correct." : "Not quite: the answer is " + LETTERS[correct] + "."));
+      fb.appendChild(document.createTextNode(q[3]));
+      fb.hidden = false;
+    } else {
+      fb.hidden = true;
+    }
+
+    $("prev").disabled = s.cur === 0;
+    const last = s.cur === c.qs.length - 1;
+    $("next").textContent = last ? "See score" : "Next";
+    $("next").disabled = !locked;
+
+    const dots = $("dots");
+    dots.replaceChildren();
+    c.qs.forEach((qq, i) => {
+      const d = el("button", "dot", String(i + 1));
+      d.type = "button";
+      const a = s.answers[i];
+      let status = "not answered";
+      if (a != null) { d.classList.add(a === qq[2] ? "right" : "miss"); status = a === qq[2] ? "correct" : "wrong"; }
+      if (i === s.cur) { d.classList.add("current"); d.setAttribute("aria-current", "step"); }
+      d.setAttribute("aria-label", "Question " + (i + 1) + ", " + status);
+      d.addEventListener("click", () => go(i));
+      dots.appendChild(d);
+    });
+
+    if (focusQuestion) $("question").focus({ preventScroll: true });
+  }
+
+  function answer(i) {
+    const s = state[ch];
+    if (s.done || s.answers[s.cur] != null) return;
+    s.answers[s.cur] = i;
+    render(false);
+    $("next").focus({ preventScroll: true });
+  }
+
+  function go(i) {
+    const s = state[ch];
+    if (i < 0 || i >= DATA[ch].qs.length) return;
+    s.cur = i;
+    render(true);
+  }
+
+  function next() {
+    const s = state[ch];
+    if (s.answers[s.cur] == null) return;
+    if (s.cur === DATA[ch].qs.length - 1) { s.done = true; render(false); }
+    else go(s.cur + 1);
+  }
+
+  $("prev").addEventListener("click", () => go(state[ch].cur - 1));
+  $("next").addEventListener("click", next);
+  $("review").addEventListener("click", () => { const s = state[ch]; s.done = false; s.cur = 0; render(true); });
+  $("restart").addEventListener("click", () => {
+    state[ch] = { answers: new Array(DATA[ch].qs.length).fill(null), cur: 0, done: false };
+    render(true);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    const t = e.target;
+    if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA")) return;
+    const s = state[ch];
+    if (s.done) return;
+    const k = e.key.toLowerCase();
+    const map = { a: 0, b: 1, c: 2, d: 3, "1": 0, "2": 1, "3": 2, "4": 3 };
+    if (k in map) { e.preventDefault(); answer(map[k]); }
+    else if (e.key === "ArrowRight") { e.preventDefault(); next(); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); go(s.cur - 1); }
+  });
+
+  window.addEventListener("hashchange", () => { ch = chapterFromHash(); render(false); });
+  ch = chapterFromHash();
+  render(false);
+})();
+</script>
+</body>
+</html>
