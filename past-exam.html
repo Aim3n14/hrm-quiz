@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HRM practice quiz</title>
+<meta name="description" content="ESCP MiM · Human Resource Management · 20 real past-exam questions (resit 2024, identical to the 2025 mocks), including real past-exam questions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --surface: #f5f5f7;
+  --card: #ffffff;
+  --text: #1d1d1f;
+  --muted: #6e6e73;
+  --line: #e5e5ea;
+  --accent: #1d4ed8;
+  --accent-soft: #e8eefc;
+  --on-accent: #ffffff;
+  --good: #15803d;
+  --good-soft: #e8f6ed;
+  --bad: #c62828;
+  --bad-soft: #fdecec;
+  --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000000;
+    --surface: #1c1c1e;
+    --card: #1c1c1e;
+    --text: #f5f5f7;
+    --muted: #a1a1a6;
+    --line: #38383a;
+    --accent: #6b8ff5;
+    --accent-soft: #1d2a4d;
+    --on-accent: #0b1020;
+    --good: #4ade80;
+    --good-soft: #12301e;
+    --bad: #f87171;
+    --bad-soft: #3a1616;
+    --shadow: none;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 720px; margin: 0 auto; padding: 40px 16px 64px; }
+header h1 { font-size: clamp(26px, 5vw, 34px); line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 6px; font-weight: 700; }
+header p { margin: 0; color: var(--muted); font-size: 15px; }
+header p a { color: var(--accent); font-weight: 500; text-decoration: none; }
+header p a:hover { text-decoration: underline; }
+.tabs[hidden] { display: none; }
+.tabs[hidden] + .card { margin-top: 28px; }
+
+.tabs { display: flex; gap: 4px; margin: 28px 0 20px; padding: 4px; background: var(--surface); border-radius: 14px; }
+.tab {
+  flex: 1 1 0; min-width: 0; min-height: 44px; padding: 8px 10px;
+  border: 0; border-radius: 10px; background: transparent; color: var(--muted);
+  font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; line-height: 1.2;
+}
+.tab span { display: block; font-size: 12px; font-weight: 500; opacity: .85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tab[aria-selected="true"] { background: var(--card); color: var(--text); box-shadow: var(--shadow); }
+@media (prefers-color-scheme: dark) { .tab[aria-selected="true"] { background: #3a3a3c; } }
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 24px; box-shadow: var(--shadow); }
+.meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 14px; color: var(--muted); font-weight: 500; }
+.meta strong { color: var(--text); font-weight: 600; }
+.bar { height: 6px; background: var(--surface); border-radius: 99px; overflow: hidden; margin: 10px 0 22px; }
+.bar > div { height: 100%; width: 0; background: var(--accent); border-radius: 99px; transition: width .3s ease; }
+
+.question { font-size: 19px; font-weight: 600; line-height: 1.4; margin: 0 0 18px; letter-spacing: -0.01em; }
+.question:focus { outline: none; }
+.src { display: inline-block; margin: 0 0 10px; padding: 3px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; letter-spacing: .01em; background: var(--surface); color: var(--muted); }
+.src.real { background: var(--accent); color: var(--on-accent); }
+.options { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.opt {
+  display: flex; align-items: flex-start; gap: 12px; width: 100%; min-height: 52px;
+  padding: 12px 14px; text-align: left; font: inherit; font-size: 16px; color: var(--text);
+  background: var(--card); border: 1.5px solid var(--line); border-radius: 14px; cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.opt:hover:not([aria-disabled="true"]) { border-color: var(--accent); background: var(--accent-soft); }
+.opt .key {
+  flex: 0 0 28px; height: 28px; border-radius: 8px; display: grid; place-items: center;
+  background: var(--surface); color: var(--muted); font-size: 13px; font-weight: 700; margin-top: -1px;
+}
+.opt[aria-disabled="true"] { cursor: default; }
+.opt.correct { border-color: var(--good); background: var(--good-soft); }
+.opt.correct .key { background: var(--good); color: var(--bg); }
+.opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
+.opt.wrong .key { background: var(--bad); color: var(--bg); }
+.opt.dim { opacity: .55; }
+
+.feedback { margin-top: 18px; padding: 14px 16px; border-radius: 14px; font-size: 15px; line-height: 1.55; border-left: 4px solid; }
+.feedback.good { background: var(--good-soft); border-color: var(--good); }
+.feedback.bad { background: var(--bad-soft); border-color: var(--bad); }
+.feedback b { display: block; margin-bottom: 2px; }
+[hidden] { display: none !important; }
+
+.nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+.btn {
+  min-height: 44px; padding: 10px 20px; border-radius: 12px; font: inherit; font-size: 15px; font-weight: 600;
+  cursor: pointer; border: 1.5px solid var(--line); background: var(--card); color: var(--text);
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+.btn:not(:disabled):hover { filter: brightness(.96); }
+
+.dots { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; justify-content: center; }
+.dot {
+  width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--surface);
+  color: var(--muted); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+}
+.dot.right { background: var(--good); border-color: var(--good); color: var(--bg); }
+.dot.miss { background: var(--bad); border-color: var(--bad); color: var(--bg); }
+.dot.current { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
+
+.end { text-align: center; padding: 16px 0 8px; }
+.end .label { color: var(--muted); font-size: 15px; font-weight: 500; margin: 0; }
+.end .big { font-size: clamp(64px, 16vw, 96px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; margin: 10px 0 8px; }
+.end .msg { margin: 0 0 24px; color: var(--muted); }
+.end .actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+
+.hint { margin-top: 18px; text-align: center; font-size: 13px; color: var(--muted); }
+kbd { font: inherit; font-size: 12px; padding: 1px 6px; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); }
+
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.tab:focus-visible, .opt:focus-visible, .btn:focus-visible, .dot:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+@media (max-width: 520px) {
+  .wrap { padding-top: 28px; }
+  .card { padding: 18px 16px; border-radius: 18px; }
+  .question { font-size: 18px; }
+  .tab { font-size: 13px; padding: 8px 6px; }
+  .nav .btn { flex: 1 1 0; }
+  .hint { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>HRM past exam · all MCQs</h1>
+    <p>ESCP MiM · Human Resource Management · 20 real past-exam questions · <a href="index.html">Chapters 1–3</a> · <a href="chapters-4-5.html">Chapters 4–5</a></p>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Chapters" id="tabs"></nav>
+
+  <main class="card" id="panel" role="tabpanel">
+    <section id="quiz">
+      <div class="meta"><span id="count"></span><strong id="score" aria-live="polite"></strong></div>
+      <div class="bar" aria-hidden="true"><div id="fill"></div></div>
+      <p class="src" id="src"></p>
+      <h2 class="question" id="question" tabindex="-1"></h2>
+      <ul class="options" id="options"></ul>
+      <div class="feedback" id="feedback" role="status" hidden></div>
+      <div class="nav">
+        <button class="btn" id="prev" type="button">Previous</button>
+        <button class="btn primary" id="next" type="button">Next</button>
+      </div>
+      <div class="dots" id="dots" aria-label="Jump to question"></div>
+    </section>
+
+    <section class="end" id="end" hidden>
+      <p class="label" id="endLabel"></p>
+      <p class="big" id="endScore"></p>
+      <p class="msg" id="endMsg"></p>
+      <div class="actions">
+        <button class="btn" id="review" type="button">Review answers</button>
+        <button class="btn primary" id="restart" type="button">Restart this chapter</button>
+      </div>
+    </section>
+  </main>
+
+  <p class="hint">Keyboard: <kbd>A</kbd>–<kbd>D</kbd> or <kbd>1</kbd>–<kbd>4</kbd> to answer · <kbd>←</kbd> <kbd>→</kbd> to move</p>
+</div>
+
+<script>
+const DATA = [{"ch": "Resit 2024 · mocks 2025", "qs": [["According to the resource-based view of the firm, HRM can contribute to developing:", ["Rare resources", "Generic resources", "Intrinsic resources", "None of the answers are correct"], 0, "RBV: advantage comes from resources that are valuable, rare, hard to imitate and organised (VRIO). Generic resources are available to every firm, so they cannot set a firm apart.", "exam"], ["Chloé is a hiring manager who often administers a skills test during an applicant's first interview. The applicant scores well and Chloé invites him back for a second interview, where she administers the same test. This time the results are different. Chloé is reviewing ______.", ["the usefulness of the test", "the mechanics of the test", "the reliability of the test", "the purpose of the test"], 2, "Reliability = consistent measurement: the same person should get the same score across sessions or raters.", "exam"], ["______ approach is a method where performance is evaluated from multiple perspectives all around the focal person, typically including manager, coworkers, and subordinates in the process.", ["Team feedback", "Paired comparisons", "360-Degree feedback", "Critical incident method"], 2, "360-degree feedback collects ratings from all around the person: manager, peers, subordinates (and sometimes clients). About 90% of Fortune 1000 firms use it, but it is time-consuming.", "exam"], ["______ provides a way of understanding how an individual's sense of fairness is influenced by others with whom they compare themselves.", ["Expectancy theory", "Equity theory", "Psychological contract theory", "None of the answers are correct"], 1, "Adams' equity theory: people compare their input/output ratio with that of referent others.", "exam"], ["What is false about generic human capital", ["It refers to knowledge that is useful to a particular employer", "It is the technical, regulatory, or customer knowledge of a particular industry", "It stems from managerial relationships at work", "All the answers are correct"], 3, "All three statements are false: A describes company-specific human capital, B industry human capital, C relationship human capital. Generic (general) human capital is useful to many employers, so it is the most portable. Here 'All the answers are correct' means that all three statements are false.", "exam"], ["Annie, a recruiter, wants to hire the best possible candidate for the job. She knows that to do this, there are two goals of recruitment to focus on. She needs to increase the number of qualified applicants and ______.", ["hold unstructured interviews", "increase the size of the applicant pool", "use targeted recruiting", "all the answers are correct"], 1, "Recruitment has two goals: quantity (a larger applicant pool) and quality (more qualified applicants). Note: the course materials do not give the official key for this question; B is the textbook answer.", "exam"], ["Jesse's organization is made up of men and women from all different races, ethnic backgrounds, ages, abilities, sexual orientation, and religions. Based on this description, it can be assumed that Jesse's organization is ______.", ["large", "corporate", "biased", "diverse"], 3, "A workforce that differs in gender, ethnicity, age, ability, orientation and religion is diverse. Nothing in the description says anything about size or bias.", "exam"], ["In carefully crafting their employer brand organizations seek to:", ["Increase their prices", "Reduce labour related costs", "To become an employer of choice for a desired target group", "Increase their pool of applicants as much as possible"], 2, "Employer branding targets the talent the firm needs: the aim is to be an employer of choice for a specific group, not to maximise applications or cut costs.", "exam"], ["Layla finds that a particular test that her company is using during the selection process to measure problem-solving skills does not accurately predict an applicant's ability on the job to solve problems. This test is ______.", ["unreliable", "not valid", "impractical", "none of the answers are correct"], 1, "Validity = measuring the right thing, i.e. predicting job performance. Reliability is only about consistency of scores.", "exam"], ["______, involves managers evaluating employees' past performance and then placing a specific percentage of employees into ranked performance categories (top performance, medium performance, low performance).", ["Management by objectives", "Performance-related pay", "Critical incident method", "Forced distribution"], 3, "Forced distribution ('stack ranking') puts a fixed percentage of employees in each category. It removes leniency but creates competition and politics.", "exam"], ["Mark is rating his employees on _______ when he assigns them scores on items such as “mentoring peers” and “initiative”.", ["Traits", "Behaviours", "Results", "Incidents"], 1, "'Mentoring peers' and 'initiative' describe what people do: behaviours. Sales figures would be results; conscientiousness would be a trait.", "exam"], ["What is the most common type of selection procedure?", ["interviews", "personality tests", "integrity tests", "cognitive ability tests"], 0, "Interviews are used almost everywhere, even though unstructured interviews are prone to biases.", "exam"], ["A car manufacturer provides a year-end bonus to the team who most frequently reaches the highest quality metrics during each report period. What type of pay-for- performance plan is this?", ["team reward", "gainsharing", "profit sharing", "stock options"], 0, "The bonus goes to one team for its own results. Gainsharing shares cost savings of a unit; profit sharing and stock options reward the whole firm.", "exam"], ["The process of measuring, communicating, and managing employee performance in the workplace so that performance is aligned with organizational strategy is called ______.", ["performance appraisal", "performance management", "employee feedback", "strategic HRM"], 1, "Performance management is the whole ongoing process aligned with strategy; appraisal is only the periodic evaluation inside it.", "exam"], ["Following Cappelli and Tavis (2016), what are the three business reasons to drop appraisals", ["Organizations' interest in people development, the relevance of teamwork and the need for agility", "Organizations' interest in people development, the increasing investment in employer branding and the need for agility", "The increasing investment in employer branding, the relevance of teamwork and the need for agility", "The increasing investment in employer branding, organizations' interest in people development, and the relevance of teamwork"], 0, "Cappelli & Tavis (2016): the return of people development, the need for agility and the central role of teamwork led firms to drop annual reviews.", "exam"], ["Which of the following criteria would not be valid to select a cashier for a supermarket:", ["They demonstrate ethical behaviour", "They have good communication skills", "They show outstanding team-management skills", "They show outstanding work reliability and responsibility"], 2, "A cashier does not manage a team, so that criterion is not relevant to the job: using it would contaminate the selection (validity).", "exam"], ["Performance appraisals are typically conducted by ______.", ["line managers", "HR professionals", "senior managers", "clients"], 0, "Appraisals are typically done by the employee's line manager, who knows the work best; HR designs the system and supports it.", "exam"], ["Which two theoretical frameworks do Sparrow & Otaye (2015) build on to support investing in employer branding?", ["Equity theory & Signalling theory", "Resource-based View & Social Identity Theory", "Signalling theory & Social identity theory", "Expectancy theory & Signalling theory"], 2, "Signalling theory explains how the brand sends credible information to candidates; social identity theory explains why people want to belong to an organisation whose image they value. Equity and expectancy theories belong to compensation.", "exam"], ["Following expectancy theory, if I do not value the reward I am offered I lack…", ["Instrumentality", "Valence", "Expectancy", "Rewards"], 1, "Valence = how much I value the reward (e.g. a trip to New York when I do not want to travel).", "exam"], ["Having an interesting job is associated with which form of motivation:", ["Process", "Content", "Intrinsic", "Extrinsic"], 2, "Interest in the work itself is intrinsic motivation. Extrinsic motivation comes from outside rewards such as pay or praise.", "exam"]]}];
+const OFF = 0;
+const SINGLE = DATA.length === 1;
+if (SINGLE) { document.getElementById("tabs").hidden = true; document.getElementById("restart").textContent = "Restart the exam"; }
+
+(function () {
+  "use strict";
+  const LETTERS = ["A", "B", "C", "D"];
+  const $ = (id) => document.getElementById(id);
+  const el = (tag, cls, text) => {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  };
+
+  const state = DATA.map((c) => ({ answers: new Array(c.qs.length).fill(null), cur: 0, done: false }));
+  let ch = 0;
+
+  /* Tabs */
+  const tabs = DATA.map((c, i) => {
+    const b = el("button", "tab");
+    b.type = "button";
+    b.setAttribute("role", "tab");
+    b.id = "tab" + (i + 1);
+    b.setAttribute("aria-controls", "panel");
+    b.appendChild(document.createTextNode("Chapter " + (i + 1 + OFF)));
+    b.appendChild(el("span", null, c.ch));
+    b.addEventListener("click", () => { location.hash = "ch" + (i + 1 + OFF); });
+    $("tabs").appendChild(b);
+    return b;
+  });
+
+  function chapterFromHash() {
+    const m = /^#ch([1-9]\d*)$/.exec(location.hash);
+    const i = m ? parseInt(m[1], 10) - 1 - OFF : 0;
+    return i >= 0 && i < DATA.length ? i : 0;
+  }
+
+  function stats(s) {
+    let right = 0, answered = 0;
+    s.answers.forEach((a, i) => {
+      if (a == null) return;
+      answered++;
+      if (a === DATA[ch].qs[i][2]) right++;
+    });
+    return { right, answered };
+  }
+
+  function render(focusQuestion) {
+    const c = DATA[ch], s = state[ch];
+    tabs.forEach((t, i) => {
+      t.setAttribute("aria-selected", i === ch ? "true" : "false");
+      t.tabIndex = i === ch ? 0 : -1;
+    });
+    $("panel").setAttribute("aria-labelledby", "tab" + (ch + 1));
+    document.title = SINGLE ? "HRM past exam · " + c.ch : "HRM practice quiz · Chapter " + (ch + 1 + OFF);
+
+    const { right, answered } = stats(s);
+    $("quiz").hidden = s.done;
+    $("end").hidden = !s.done;
+
+    if (s.done) {
+      const total = c.qs.length;
+      $("endLabel").textContent = SINGLE ? c.ch : "Chapter " + (ch + 1 + OFF) + " · " + c.ch;
+      $("endScore").textContent = right + "/" + total;
+      const pct = right / total;
+      $("endMsg").textContent = pct >= 0.8 ? "Excellent. You are ready for this " + (SINGLE ? "exam." : "chapter.")
+        : pct >= 0.6 ? "Good. Review the questions you missed."
+        : "Worth another pass: review the explanations and try again.";
+      $("review").focus({ preventScroll: true });
+      return;
+    }
+
+    const q = c.qs[s.cur], chosen = s.answers[s.cur], locked = chosen != null, correct = q[2];
+    $("count").textContent = "Question " + (s.cur + 1) + " of " + c.qs.length;
+    $("score").textContent = "Score " + right + "/" + answered;
+    $("fill").style.width = (answered / c.qs.length * 100) + "%";
+    const SRC = { exam: "Past exam · resit 2024 & mocks 2025", prof: "Professor's example question", quiz: "Class quiz", new: "New · exam style" };
+    $("src").textContent = SRC[q[4]] || "";
+    $("src").className = "src" + (q[4] === "new" ? "" : " real");
+    $("question").textContent = q[0];
+
+    const list = $("options");
+    list.replaceChildren();
+    q[1].forEach((text, i) => {
+      const li = el("li");
+      const b = el("button", "opt");
+      b.type = "button";
+      b.appendChild(el("span", "key", LETTERS[i]));
+      b.appendChild(el("span", null, text));
+      if (locked) {
+        b.setAttribute("aria-disabled", "true");
+        if (i === correct) b.classList.add("correct");
+        else if (i === chosen) b.classList.add("wrong");
+        else b.classList.add("dim");
+        if (i === chosen) b.setAttribute("aria-label", LETTERS[i] + ". " + text + " (your answer" + (i === correct ? ", correct)" : ", wrong)"));
+        else if (i === correct) b.setAttribute("aria-label", LETTERS[i] + ". " + text + " (correct answer)");
+      }
+      b.addEventListener("click", () => answer(i));
+      li.appendChild(b);
+      list.appendChild(li);
+    });
+
+    const fb = $("feedback");
+    fb.replaceChildren();
+    if (locked) {
+      const ok = chosen === correct;
+      fb.className = "feedback " + (ok ? "good" : "bad");
+      fb.appendChild(el("b", null, ok ? "Correct." : "Not quite: the answer is " + LETTERS[correct] + "."));
+      fb.appendChild(document.createTextNode(q[3]));
+      fb.hidden = false;
+    } else {
+      fb.hidden = true;
+    }
+
+    $("prev").disabled = s.cur === 0;
+    const last = s.cur === c.qs.length - 1;
+    $("next").textContent = last ? "See score" : "Next";
+    $("next").disabled = !locked;
+
+    const dots = $("dots");
+    dots.replaceChildren();
+    c.qs.forEach((qq, i) => {
+      const d = el("button", "dot", String(i + 1));
+      d.type = "button";
+      const a = s.answers[i];
+      let status = "not answered";
+      if (a != null) { d.classList.add(a === qq[2] ? "right" : "miss"); status = a === qq[2] ? "correct" : "wrong"; }
+      if (i === s.cur) { d.classList.add("current"); d.setAttribute("aria-current", "step"); }
+      d.setAttribute("aria-label", "Question " + (i + 1) + ", " + status);
+      d.addEventListener("click", () => go(i));
+      dots.appendChild(d);
+    });
+
+    if (focusQuestion) $("question").focus({ preventScroll: true });
+  }
+
+  function answer(i) {
+    const s = state[ch];
+    if (s.done || s.answers[s.cur] != null) return;
+    s.answers[s.cur] = i;
+    render(false);
+    $("next").focus({ preventScroll: true });
+  }
+
+  function go(i) {
+    const s = state[ch];
+    if (i < 0 || i >= DATA[ch].qs.length) return;
+    s.cur = i;
+    render(true);
+  }
+
+  function next() {
+    const s = state[ch];
+    if (s.answers[s.cur] == null) return;
+    if (s.cur === DATA[ch].qs.length - 1) { s.done = true; render(false); }
+    else go(s.cur + 1);
+  }
+
+  $("prev").addEventListener("click", () => go(state[ch].cur - 1));
+  $("next").addEventListener("click", next);
+  $("review").addEventListener("click", () => { const s = state[ch]; s.done = false; s.cur = 0; render(true); });
+  $("restart").addEventListener("click", () => {
+    state[ch] = { answers: new Array(DATA[ch].qs.length).fill(null), cur: 0, done: false };
+    render(true);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    const t = e.target;
+    if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA")) return;
+    const s = state[ch];
+    if (s.done) return;
+    const k = e.key.toLowerCase();
+    const map = { a: 0, b: 1, c: 2, d: 3, "1": 0, "2": 1, "3": 2, "4": 3 };
+    if (k in map) { e.preventDefault(); answer(map[k]); }
+    else if (e.key === "ArrowRight") { e.preventDefault(); next(); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); go(s.cur - 1); }
+  });
+
+  window.addEventListener("hashchange", () => { ch = chapterFromHash(); render(false); });
+  ch = chapterFromHash();
+  render(false);
+})();
+</script>
+</body>
+</html>
